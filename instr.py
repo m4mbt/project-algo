@@ -20,3 +20,4 @@ txt_res2 = 'fair. We recommend you consult a doctor!'
 txt_res3 = 'average. You might want to consider getting checked by a doctor.'
 txt_res4 = 'good'
 txt_res5 = 'excellent'
+
