@@ -1,22 +1,39 @@
-# instr.py
-txt_title = 'Health Check'
-win_x, win_y = 200, 100
-win_width, win_height = 1000, 600
+# my_app.py
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QVBoxLayout
+from instr import *
+from second_win import TestWin
 
-txt_hello = 'Welcome to the Health Check program!'
-txt_instruction = (
-    "This program helps you use the Rufier test to make a first evaluation of your health.\n"
-    "In 45 seconds, do 30 squats and measure your heart rate during the final 15 seconds of the first minute\n"
-    "of recovery.\n"
-    "Note: If you feel unwell (dizzy or faint), stop immediately."
-)
+class MainWindow(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.init_appearance()
+        self.create_widgets()
+        self.add_connections()
+        self.show()
 
-txt_next = 'Start Test'
-txt_index = 'Rufier Index: '
-txt_workheart = 'Heart Function: '
+    def init_appearance(self):
+        self.setWindowTitle(txt_title)
+        self.setGeometry(win_x, win_y, win_width, win_height)
 
-txt_res1 = 'very low. Please see a doctor as soon as possible!'
-txt_res2 = 'fair. We recommend you consult a doctor!'
-txt_res3 = 'average. You might want to consider getting checked by a doctor.'
-txt_res4 = 'good'
-txt_res5 = 'excellent'
+    def create_widgets(self):
+        self.greeting_label = QLabel(txt_hello)
+        self.instructions_label = QLabel(txt_instruction)
+        self.start_button = QPushButton(txt_next)
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.greeting_label)
+        layout.addWidget(self.instructions_label)
+        layout.addWidget(self.start_button)
+        self.setLayout(layout)
+
+    def add_connections(self):
+        self.start_button.clicked.connect(self.open_test_window)
+
+    def open_test_window(self):
+        self.hide()
+        self.test_window = TestWin()
+
+if __name__ == '__main__':
+    app = QApplication([])
+    main_window = MainWindow()
+    app.exec_()
